@@ -9,10 +9,10 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   List<String> gridList = [
-    "",
-    "",
-    "",
-    "",
+    "x",
+    "o",
+    "x",
+    "o",
     "",
     "",
     "",
@@ -49,7 +49,31 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ],
               ),
-            )
+            ),
+            SizedBox(
+              height: 10.0,
+            ),
+            Expanded(
+                child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              child: GridView.builder(
+                itemCount: gridList.length,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3),
+                itemBuilder: (context, index) {
+                  return Container(
+                    decoration:
+                        BoxDecoration(border: Border.all(color: Colors.black)),
+                    child: Center(
+                      child: Text(
+                        gridList[index],
+                        style: TextStyle(color: Colors.black, fontSize: 52.0),
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ))
           ],
         ),
       ),
