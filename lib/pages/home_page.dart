@@ -30,6 +30,7 @@ class _HomePageState extends State<HomePage> {
       body: SafeArea(
         child: Center(
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
                 padding: EdgeInsets.all(24.0),
@@ -54,8 +55,8 @@ class _HomePageState extends State<HomePage> {
               SizedBox(
                 height: 10.0,
               ),
-              Expanded(
-                  child: Container(
+              Container(
+                height: 375,
                 margin: EdgeInsets.symmetric(horizontal: 10.0),
                 padding: const EdgeInsets.all(24.0),
                 decoration: BoxDecoration(
@@ -63,6 +64,7 @@ class _HomePageState extends State<HomePage> {
                     borderRadius: BorderRadius.circular(10.0)),
                 child: GridView.builder(
                   itemCount: gridList.length,
+                  physics: NeverScrollableScrollPhysics(),
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 3),
                   itemBuilder: (context, index) {
@@ -92,7 +94,33 @@ class _HomePageState extends State<HomePage> {
                     );
                   },
                 ),
-              ))
+              ),
+              SizedBox(
+                height: 10.0,
+              ),
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    for (int i = 0; i < gridList.length; i++) {
+                      gridList[i] = "";
+                    }
+                    xTurn = true;
+                  });
+                },
+                child: Container(
+                  width: MediaQuery.sizeOf(context).width,
+                  margin: EdgeInsets.symmetric(horizontal: 10.0),
+                  padding: EdgeInsets.all(24.0),
+                  decoration: BoxDecoration(
+                      color: Colors.blue[100],
+                      borderRadius: BorderRadius.circular(10.0)),
+                  child: Text(
+                    "Clear board",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(color: Colors.black, fontSize: 24.0),
+                  ),
+                ),
+              ),
             ],
           ),
         ),
