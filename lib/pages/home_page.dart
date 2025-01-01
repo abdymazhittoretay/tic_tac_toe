@@ -55,6 +55,34 @@ class _HomePageState extends State<HomePage> {
               SizedBox(
                 height: 10.0,
               ),
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    for (int i = 0; i < gridList.length; i++) {
+                      gridList[i] = "";
+                    }
+                    xTurn = true;
+                    player1Score = 0;
+                    player2Score = 0;
+                  });
+                },
+                child: Container(
+                  width: MediaQuery.sizeOf(context).width,
+                  margin: EdgeInsets.symmetric(horizontal: 10.0),
+                  padding: EdgeInsets.all(24.0),
+                  decoration: BoxDecoration(
+                      color: Colors.blue[100],
+                      borderRadius: BorderRadius.circular(10.0)),
+                  child: Text(
+                    "Reset Game",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(color: Colors.black, fontSize: 24.0),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 10.0,
+              ),
               Container(
                 height: 375,
                 margin: EdgeInsets.symmetric(horizontal: 10.0),
@@ -78,6 +106,7 @@ class _HomePageState extends State<HomePage> {
                             gridList[index] = "o";
                             xTurn = !xTurn;
                           }
+                          checkWinner();
                         });
                       },
                       child: Container(
@@ -126,5 +155,74 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
     );
+  }
+
+  // Functions
+  void checkWinner() {
+    if (gridList[0] == gridList[1] &&
+        gridList[0] == gridList[2] &&
+        gridList[0] != "") {
+      if (gridList[0] == "x") {
+        player1Score++;
+      } else {
+        player2Score++;
+      }
+    } else if (gridList[0] == gridList[3] &&
+        gridList[0] == gridList[6] &&
+        gridList[0] != "") {
+      if (gridList[0] == "x") {
+        player1Score++;
+      } else {
+        player2Score++;
+      }
+    } else if (gridList[0] == gridList[4] &&
+        gridList[0] == gridList[8] &&
+        gridList[0] != "") {
+      if (gridList[0] == "x") {
+        player1Score++;
+      } else {
+        player2Score++;
+      }
+    } else if (gridList[1] == gridList[4] &&
+        gridList[1] == gridList[7] &&
+        gridList[1] != "") {
+      if (gridList[1] == "x") {
+        player1Score++;
+      } else {
+        player2Score++;
+      }
+    } else if (gridList[2] == gridList[5] &&
+        gridList[2] == gridList[8] &&
+        gridList[2] != "") {
+      if (gridList[2] == "x") {
+        player1Score++;
+      } else {
+        player2Score++;
+      }
+    } else if (gridList[2] == gridList[4] &&
+        gridList[2] == gridList[6] &&
+        gridList[2] != "") {
+      if (gridList[2] == "x") {
+        player1Score++;
+      } else {
+        player2Score++;
+      }
+    } else if (gridList[3] == gridList[4] &&
+        gridList[3] == gridList[5] &&
+        gridList[3] != "") {
+      if (gridList[3] == "x") {
+        player1Score++;
+      } else {
+        player2Score++;
+      }
+    } else if (gridList[6] == gridList[7] &&
+        gridList[6] == gridList[8] &&
+        gridList[6] != "") {
+      if (gridList[6] == "x") {
+        player1Score++;
+      } else {
+        player2Score++;
+      }
+    }
   }
 }
