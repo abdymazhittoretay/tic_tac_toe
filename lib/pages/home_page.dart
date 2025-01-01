@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:tic_tac_toe/pages/widgets/clear_button.dart';
+import 'package:tic_tac_toe/pages/widgets/reset_button.dart';
+import 'package:tic_tac_toe/pages/widgets/score_bar.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -32,53 +35,19 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Container(
-                padding: EdgeInsets.all(24.0),
-                margin: EdgeInsets.symmetric(horizontal: 10.0),
-                decoration: BoxDecoration(
-                    color: Colors.blue[100],
-                    borderRadius: BorderRadius.circular(10.0)),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Text(
-                      "Player (x) Score: $player1Score",
-                      style: TextStyle(color: Colors.black, fontSize: 16),
-                    ),
-                    Text(
-                      "Player (o) Score: $player2Score",
-                      style: TextStyle(color: Colors.black, fontSize: 16),
-                    ),
-                  ],
-                ),
-              ),
+              ScoreBar(player1Score: player1Score, player2Score: player2Score),
               SizedBox(
                 height: 10.0,
               ),
               GestureDetector(
                 onTap: () {
+                  clearButton();
                   setState(() {
-                    for (int i = 0; i < gridList.length; i++) {
-                      gridList[i] = "";
-                    }
-                    xTurn = true;
                     player1Score = 0;
                     player2Score = 0;
                   });
                 },
-                child: Container(
-                  width: MediaQuery.sizeOf(context).width,
-                  margin: EdgeInsets.symmetric(horizontal: 10.0),
-                  padding: EdgeInsets.all(24.0),
-                  decoration: BoxDecoration(
-                      color: Colors.blue[100],
-                      borderRadius: BorderRadius.circular(10.0)),
-                  child: Text(
-                    "Reset game",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(color: Colors.black, fontSize: 24.0),
-                  ),
-                ),
+                child: ResetButton(),
               ),
               SizedBox(
                 height: 10.0,
@@ -127,21 +96,8 @@ class _HomePageState extends State<HomePage> {
               SizedBox(
                 height: 10.0,
               ),
-              GestureDetector(
+              ClearButton(
                 onTap: clearButton,
-                child: Container(
-                  width: MediaQuery.sizeOf(context).width,
-                  margin: EdgeInsets.symmetric(horizontal: 10.0),
-                  padding: EdgeInsets.all(24.0),
-                  decoration: BoxDecoration(
-                      color: Colors.blue[100],
-                      borderRadius: BorderRadius.circular(10.0)),
-                  child: Text(
-                    "Clear board",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(color: Colors.black, fontSize: 24.0),
-                  ),
-                ),
               ),
             ],
           ),
