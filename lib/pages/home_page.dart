@@ -42,11 +42,11 @@ class _HomePageState extends State<HomePage> {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Text(
-                      "Player 1 Score: $player1Score",
+                      "Player (x) Score: $player1Score",
                       style: TextStyle(color: Colors.black, fontSize: 16),
                     ),
                     Text(
-                      "Player 2 Score: $player2Score",
+                      "Player (o) Score: $player2Score",
                       style: TextStyle(color: Colors.black, fontSize: 16),
                     ),
                   ],
@@ -74,7 +74,7 @@ class _HomePageState extends State<HomePage> {
                       color: Colors.blue[100],
                       borderRadius: BorderRadius.circular(10.0)),
                   child: Text(
-                    "Reset Game",
+                    "Reset game",
                     textAlign: TextAlign.center,
                     style: TextStyle(color: Colors.black, fontSize: 24.0),
                   ),
@@ -128,14 +128,7 @@ class _HomePageState extends State<HomePage> {
                 height: 10.0,
               ),
               GestureDetector(
-                onTap: () {
-                  setState(() {
-                    for (int i = 0; i < gridList.length; i++) {
-                      gridList[i] = "";
-                    }
-                    xTurn = true;
-                  });
-                },
+                onTap: clearButton,
                 child: Container(
                   width: MediaQuery.sizeOf(context).width,
                   margin: EdgeInsets.symmetric(horizontal: 10.0),
@@ -157,72 +150,149 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  void showWinDialog(String winner) {
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Center(child: Text("Player ($winner) won!")),
+            actions: [
+              Center(
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blue[100],
+                      foregroundColor: Colors.black),
+                  child: Text("Play Again"),
+                  onPressed: () {
+                    clearButton();
+                    Navigator.of(context).pop();
+                  },
+                ),
+              )
+            ],
+          );
+        });
+  }
+
+  void showTieDialog() {
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Center(child: Text("Tie!")),
+            actions: [
+              Center(
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blue[100],
+                      foregroundColor: Colors.black),
+                  child: Text("Play Again"),
+                  onPressed: () {
+                    clearButton();
+                    Navigator.of(context).pop();
+                  },
+                ),
+              )
+            ],
+          );
+        });
+  }
+
   // Functions
+  void clearButton() {
+    setState(() {
+      for (int i = 0; i < gridList.length; i++) {
+        gridList[i] = "";
+      }
+      xTurn = true;
+    });
+  }
+
   void checkWinner() {
     if (gridList[0] == gridList[1] &&
         gridList[0] == gridList[2] &&
         gridList[0] != "") {
       if (gridList[0] == "x") {
+        showWinDialog(gridList[0]);
         player1Score++;
       } else {
+        showWinDialog(gridList[0]);
         player2Score++;
       }
     } else if (gridList[0] == gridList[3] &&
         gridList[0] == gridList[6] &&
         gridList[0] != "") {
       if (gridList[0] == "x") {
+        showWinDialog(gridList[0]);
         player1Score++;
       } else {
+        showWinDialog(gridList[0]);
         player2Score++;
       }
     } else if (gridList[0] == gridList[4] &&
         gridList[0] == gridList[8] &&
         gridList[0] != "") {
       if (gridList[0] == "x") {
+        showWinDialog(gridList[0]);
         player1Score++;
       } else {
+        showWinDialog(gridList[0]);
         player2Score++;
       }
     } else if (gridList[1] == gridList[4] &&
         gridList[1] == gridList[7] &&
         gridList[1] != "") {
       if (gridList[1] == "x") {
+        showWinDialog(gridList[1]);
         player1Score++;
       } else {
+        showWinDialog(gridList[1]);
         player2Score++;
       }
     } else if (gridList[2] == gridList[5] &&
         gridList[2] == gridList[8] &&
         gridList[2] != "") {
       if (gridList[2] == "x") {
+        showWinDialog(gridList[2]);
         player1Score++;
       } else {
+        showWinDialog(gridList[2]);
         player2Score++;
       }
     } else if (gridList[2] == gridList[4] &&
         gridList[2] == gridList[6] &&
         gridList[2] != "") {
       if (gridList[2] == "x") {
+        showWinDialog(gridList[2]);
         player1Score++;
       } else {
+        showWinDialog(gridList[2]);
         player2Score++;
       }
     } else if (gridList[3] == gridList[4] &&
         gridList[3] == gridList[5] &&
         gridList[3] != "") {
       if (gridList[3] == "x") {
+        showWinDialog(gridList[3]);
         player1Score++;
       } else {
+        showWinDialog(gridList[3]);
         player2Score++;
       }
     } else if (gridList[6] == gridList[7] &&
         gridList[6] == gridList[8] &&
         gridList[6] != "") {
       if (gridList[6] == "x") {
+        showWinDialog(gridList[6]);
         player1Score++;
       } else {
+        showWinDialog(gridList[6]);
         player2Score++;
       }
+    } else if (!gridList.contains("")) {
+      showTieDialog();
     }
   }
 }
